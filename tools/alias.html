@@ -82,9 +82,14 @@
           // Values
           $.get('/tools/data/alias/words.txt', function(data) {
             var words = data.split("\n");
+
             var select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
             var select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
             var select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+
+            var current = 0;
+
+
             if (select == select2) {
               select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
             } else if (select2 == select3) {
@@ -99,6 +104,7 @@
               if (i == select) { found = true; }
               if (i == select2) { found2 = true; }
               if (i == select3) { found3 = true; }
+              count++;
             });
 
             if (found == true) {
@@ -138,15 +144,15 @@
 
             const text = document.createElement("h3");
             text.className = "demo-panel-title";
-            text.innerText = "Alias 1";
+            text.innerText = "Alias " + count;
 
             const text2 = document.createElement("h3");
             text2.className = "demo-panel-title";
-            text2.innerText = "Alias 2";
+            text2.innerText = "Alias " + count;
 
             const text3 = document.createElement("h3");
             text3.className = "demo-panel-title";
-            text3.innerText = "Alias 3";
+            text3.innerText = "Alias " + count;
 
             const fvalue = document.createElement("input");
             fvalue.className = "form-control";
