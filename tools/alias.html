@@ -77,9 +77,6 @@
 
         function CreateAlias() {
 
-          // Clear old results
-          document.getElementById("contentContainer").innerHTML = "";
-
           // Values
           $.get('/tools/data/alias/words.txt', function(data) {
             var words = data.split("\n");
@@ -176,6 +173,7 @@
             col3.appendChild(text3);
             col3.appendChild(fvalue3);
 
+            document.getElementById("contentContainer").innerHTML = "";
             document.getElementById("contentContainer").appendChild(row);
               
           }, 'text');
