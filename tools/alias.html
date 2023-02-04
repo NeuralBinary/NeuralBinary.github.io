@@ -121,84 +121,125 @@
             } else if (!Gender) {
                 alert("Invalid gender.");
             } else {
-                buildResults(Category, Gender);
+                buildResults();
             }
         }
 
-        function buildResults(c, g) {
-            // Values incoming
-            const Category = c;
-            const Gender = g;
+        var used = [];
 
-            // Row
-            const row = document.createElement("div");
-            row.className = "row";
-
-            // Column
-            const col = document.createElement("div");
-            col.className = "col";
-
-            const col2 = document.createElement("div");
-            col2.className = "col";
-
-            const col3 = document.createElement("div");
-            col3.className = "col";
-
-            // Value groups
-
-            const fgroup = document.createElement("div");
-            fgroup.className = "form-group";
-
-            const fgroup2 = document.createElement("div");
-            fgroup2.className = "form-group";
-
-            const fgroup3 = document.createElement("div");
-            fgroup3.className = "form-group";
-
-            // Labels
-
-            const text = document.createElement("h3");
-            text.className = "demo-panel-title";
-            text.innerText = "Alias";
-
-            const text2 = document.createElement("h3");
-            text2.className = "demo-panel-title";
-            text2.innerText = "Field 2";
-
-            const text3 = document.createElement("h3");
-            text3.className = "demo-panel-title";
-            text3.innerText = "Field 3";
+        function buildResults() {
 
             // Values
+            $.get('/data/alias/words.txt', function(data) {
+              var words = data.split("\n");
 
-            const fvalue = document.createElement("input");
-            fvalue.className = "form-control";
-            fvalue.value = Category + ' => ' + Gender;
+              var select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              var select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              var select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
 
-            const fvalue2 = document.createElement("input");
-            fvalue2.className = "form-control";
-            fvalue2.value = Category + ' => ' + Gender;
+              if (select == select2) {
+                select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              } else if (select2 == select3) {
+                select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              }
 
-            const fvalue3 = document.createElement("input");
-            fvalue3.className = "form-control";
-            fvalue3.value = Category + ' => ' + Gender;
+              var found = false;
+              var found2 = false;
+              var found3 = false;
 
-            // Assign Everything
+              Array.prototype.forEach.call(used,function(i){    
+                if (i == select) {
+                  found = true;
+                }
 
-            row.appendChild(col);
-            row.appendChild(col2);
-            row.appendChild(col3);
+                if (i == select2) {
+                  found2 = true;
+                }
 
-            col.appendChild(text);
-            col.appendChild(fvalue);
+                if (i == select3) {
+                  found3 = true;
+                }
+              });
 
-            col2.appendChild(text2);
-            col2.appendChild(fvalue2);
+              if (found == true) {
+                select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              } else if (found2 == true) {
+                select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              } else if (found3 == true) {
+                select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+              }
 
-            col3.appendChild(text3);
-            col3.appendChild(fvalue3);
+              // Row
+              const row = document.createElement("div");
+              row.className = "row";
 
-            document.getElementById("contentContainer").appendChild(row);
+              // Column
+              const col = document.createElement("div");
+              col.className = "col";
+
+              const col2 = document.createElement("div");
+              col2.className = "col";
+
+              const col3 = document.createElement("div");
+              col3.className = "col";
+
+              // Value groups
+
+              const fgroup = document.createElement("div");
+              fgroup.className = "form-group";
+
+              const fgroup2 = document.createElement("div");
+              fgroup2.className = "form-group";
+
+              const fgroup3 = document.createElement("div");
+              fgroup3.className = "form-group";
+
+              // Labels
+
+              const text = document.createElement("h3");
+              text.className = "demo-panel-title";
+              text.innerText = "Alias 1";
+
+              const text2 = document.createElement("h3");
+              text2.className = "demo-panel-title";
+              text2.innerText = "Alias 2";
+
+              const text3 = document.createElement("h3");
+              text3.className = "demo-panel-title";
+              text3.innerText = "Alias 3";
+
+              const fvalue = document.createElement("input");
+              fvalue.className = "form-control";
+              fvalue.value = select;
+
+              const fvalue2 = document.createElement("input");
+              fvalue2.className = "form-control";
+              fvalue2.value = select2;
+
+              const fvalue3 = document.createElement("input");
+              fvalue3.className = "form-control";
+              fvalue3.value = select3;
+
+              // Assign Everything
+
+              row.appendChild(col);
+              row.appendChild(col2);
+              row.appendChild(col3);
+
+              col.appendChild(text);
+              col.appendChild(fvalue);
+
+              col2.appendChild(text2);
+              col2.appendChild(fvalue2);
+
+              col3.appendChild(text3);
+              col3.appendChild(fvalue3);
+
+              document.getElementById("contentContainer").appendChild(row);
+              
+            }, 'text');
+
+            
         }
     </script>
     <!--
