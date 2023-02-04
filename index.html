@@ -17,6 +17,7 @@
         border-radius: 0px !important;
       }
     </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-embossed navbar-expand-lg rocket" role="navigation">
@@ -51,7 +52,7 @@
     </nav>
     <div class="container">
 
-      <h3 id="updateLog" class="demo-panel-title">Under Construction..</h3>
+      <h3 id="updateLog" class="demo-panel-title">Welcome to <strong>Neural Binary</strong>!</h3>
       <div class="row">
         <div class="col">
           <div class="form-group">
@@ -61,43 +62,14 @@
       </div>
 
     </div> <!-- /container -->
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@1.14.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
     <script src="dist/scripts/flat-ui.js"></script>
     <script src="docs/assets/js/application.js"></script>
     <script type="text/javascript">
-      // We only do this to show commit updates as GitHub limits commit updates.
-      // Live mode to personal page anyway. :)
-      var now     = new Date(); 
-      var year    = now.getFullYear();
-      var month   = now.getMonth()+1; 
-      var day     = now.getDate();
-      var hour    = now.getHours();
-      var minute  = now.getMinutes();
-      var second  = now.getSeconds(); 
-      if(month.toString().length == 1) { month = '0'+month; }
-      if(day.toString().length == 1) { day = '0'+day; }   
-      if(hour.toString().length == 1) { hour = '0'+hour; }
-      if(minute.toString().length == 1) { minute = '0'+minute; }
-      if(second.toString().length == 1) { second = '0'+second; }
-      var time = hour + ':' + minute;
-      time = time.split(':');
-      var hours = Number(time[0]);
-      var minutes = Number(time[1]);
-      var timeNow;
-      if (hours > 0 && hours <= 12) {
-        timeNow= "" + hours;
-      } else if (hours > 12) {
-        timeNow= "" + (hours - 12);
-      } else if (hours == 0) {
-        timeNow= "12";
-      }   
-      timeNow += (minutes < 10) ? ":0" + minutes : ":" + minutes;
-      timeNow += (hours >= 12) ? " PM" : " AM";
-      var today = month + '-' + day + '-' + year;
-      document.getElementById("updateLog").innerHTML = "Updated: " + today + " (" + timeNow + ")";
+      
     </script>
   </body>
 </html>
