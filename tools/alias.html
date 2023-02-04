@@ -104,7 +104,7 @@
               if (i == select) { found = true; }
               if (i == select2) { found2 = true; }
               if (i == select3) { found3 = true; }
-              count++;
+              current++;
             });
 
             if (found == true) {
@@ -144,15 +144,15 @@
 
             const text = document.createElement("h3");
             text.className = "demo-panel-title";
-            text.innerText = "Alias " + count;
+            text.innerText = "Alias " + current;
 
             const text2 = document.createElement("h3");
             text2.className = "demo-panel-title";
-            text2.innerText = "Alias " + count;
+            text2.innerText = "Alias " + current;
 
             const text3 = document.createElement("h3");
             text3.className = "demo-panel-title";
-            text3.innerText = "Alias " + count;
+            text3.innerText = "Alias " + current;
 
             const fvalue = document.createElement("input");
             fvalue.className = "form-control";
