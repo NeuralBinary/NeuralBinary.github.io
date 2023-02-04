@@ -53,7 +53,7 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div id="contentContainer" class="container">
         <div class="row">
             <div class="col">
                 <h3 class="demo-panel-title">Category</h3>
@@ -111,9 +111,48 @@
             } else if (!Gender) {
                 alert("Invalid gender.");
             } else {
-                alert(Category + ' => ' + Gender);
+                buildResults(Category, Gender);
             }
         }
+
+        function buildResults(c, g) {
+            const Category = c;
+            const Gender = g;
+
+            const row = document.createElement("div");
+            row.className = "row";
+
+            const col = document.createElement("div");
+            col.className = "col";
+
+            const alias = document.createElement("h3");
+            alias.className = "demo-panel-title";
+            alias.innerText = "Alias";
+
+            const fgroup = document.createElement("div");
+            fgroup.className = "form-group";
+
+            const fvalue = document.createElement("input");
+            fvalue.className = "form-control";
+            fvalue.value = Category + ' => ' + Gender;
+
+            row.appendChild(col);
+            col.appendChild(alias);
+            col.appendChild(fgroup);
+            fgroup.appendChild(fvalue);
+
+            document.getElementById("contentContainer").appendChild(row);
+        }
     </script>
+    <!--
+        <div class="row">
+            <div class="col">
+                <h3 class="demo-panel-title">Filters (Optional)</h3>
+                <div class="form-group">
+                    <input type="text" value="" placeholder="*" class="form-control">
+                </div>
+            </div>
+        </div>
+    -->
   </body>
 </html>
