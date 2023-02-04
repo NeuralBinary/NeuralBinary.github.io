@@ -118,128 +118,109 @@
 
         function buildResults() {
 
-            // Values
-            $.get('/tools/data/alias/words.txt', function(data) {
-              var words = data.split("\n");
+          // Clear old results
+          document.getElementById("contentContainer").innerHTML = "";
 
-              var select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              var select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              var select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+          // Values
+          $.get('/tools/data/alias/words.txt', function(data) {
+            var words = data.split("\n");
+            var select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            var select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            var select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            if (select == select2) {
+              select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            } else if (select2 == select3) {
+              select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            }
 
-              if (select == select2) {
-                select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              } else if (select2 == select3) {
-                select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              }
+            var found = false;
+            var found2 = false;
+            var found3 = false;
 
-              var found = false;
-              var found2 = false;
-              var found3 = false;
+            Array.prototype.forEach.call(used,function(i){    
+              if (i == select) { found = true; }
+              if (i == select2) { found2 = true; }
+              if (i == select3) { found3 = true; }
+            });
 
-              Array.prototype.forEach.call(used,function(i){    
-                if (i == select) {
-                  found = true;
-                }
+            if (found == true) {
+              select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            } else if (found2 == true) {
+              select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            } else if (found3 == true) {
+              select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
+            }
 
-                if (i == select2) {
-                  found2 = true;
-                }
+            // Row
+            const row = document.createElement("div");
+            row.className = "row";
 
-                if (i == select3) {
-                  found3 = true;
-                }
-              });
+            // Column
+            const col = document.createElement("div");
+            col.className = "col";
 
-              if (found == true) {
-                select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              } else if (found2 == true) {
-                select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              } else if (found3 == true) {
-                select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
-              }
+            const col2 = document.createElement("div");
+            col2.className = "col";
 
-              // Row
-              const row = document.createElement("div");
-              row.className = "row";
+            const col3 = document.createElement("div");
+            col3.className = "col";
 
-              // Column
-              const col = document.createElement("div");
-              col.className = "col";
+            // Value groups
 
-              const col2 = document.createElement("div");
-              col2.className = "col";
+            const fgroup = document.createElement("div");
+            fgroup.className = "form-group";
 
-              const col3 = document.createElement("div");
-              col3.className = "col";
+            const fgroup2 = document.createElement("div");
+            fgroup2.className = "form-group";
 
-              // Value groups
+            const fgroup3 = document.createElement("div");
+            fgroup3.className = "form-group";
 
-              const fgroup = document.createElement("div");
-              fgroup.className = "form-group";
+            // Labels
 
-              const fgroup2 = document.createElement("div");
-              fgroup2.className = "form-group";
+            const text = document.createElement("h3");
+            text.className = "demo-panel-title";
+            text.innerText = "Alias 1";
 
-              const fgroup3 = document.createElement("div");
-              fgroup3.className = "form-group";
+            const text2 = document.createElement("h3");
+            text2.className = "demo-panel-title";
+            text2.innerText = "Alias 2";
 
-              // Labels
+            const text3 = document.createElement("h3");
+            text3.className = "demo-panel-title";
+            text3.innerText = "Alias 3";
 
-              const text = document.createElement("h3");
-              text.className = "demo-panel-title";
-              text.innerText = "Alias 1";
+            const fvalue = document.createElement("input");
+            fvalue.className = "form-control";
+            fvalue.value = select;
 
-              const text2 = document.createElement("h3");
-              text2.className = "demo-panel-title";
-              text2.innerText = "Alias 2";
+            const fvalue2 = document.createElement("input");
+            fvalue2.className = "form-control";
+            fvalue2.value = select2;
 
-              const text3 = document.createElement("h3");
-              text3.className = "demo-panel-title";
-              text3.innerText = "Alias 3";
+            const fvalue3 = document.createElement("input");
+            fvalue3.className = "form-control";
+            fvalue3.value = select3;
 
-              const fvalue = document.createElement("input");
-              fvalue.className = "form-control";
-              fvalue.value = select;
+            // Assign Everything
 
-              const fvalue2 = document.createElement("input");
-              fvalue2.className = "form-control";
-              fvalue2.value = select2;
+            row.appendChild(col);
+            row.appendChild(col2);
+            row.appendChild(col3);
 
-              const fvalue3 = document.createElement("input");
-              fvalue3.className = "form-control";
-              fvalue3.value = select3;
+            col.appendChild(text);
+            col.appendChild(fvalue);
 
-              // Assign Everything
+            col2.appendChild(text2);
+            col2.appendChild(fvalue2);
 
-              row.appendChild(col);
-              row.appendChild(col2);
-              row.appendChild(col3);
+            col3.appendChild(text3);
+            col3.appendChild(fvalue3);
 
-              col.appendChild(text);
-              col.appendChild(fvalue);
-
-              col2.appendChild(text2);
-              col2.appendChild(fvalue2);
-
-              col3.appendChild(text3);
-              col3.appendChild(fvalue3);
-
-              document.getElementById("contentContainer").appendChild(row);
+            document.getElementById("contentContainer").appendChild(row);
               
-            }, 'text');
-
-            
+          }, 'text');
         }
     </script>
-    <!--
-        <div class="row">
-            <div class="col">
-                <h3 class="demo-panel-title">Filters (Optional)</h3>
-                <div class="form-group">
-                    <input type="text" value="" placeholder="*" class="form-control">
-                </div>
-            </div>
-        </div>
-    -->
   </body>
 </html>
