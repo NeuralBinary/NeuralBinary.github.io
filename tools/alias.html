@@ -130,7 +130,7 @@
         function buildResults() {
 
             // Values
-            $.get('/data/alias/words.txt', function(data) {
+            $.get('/tools/data/alias/words.txt', function(data) {
               var words = data.split("\n");
 
               var select = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
