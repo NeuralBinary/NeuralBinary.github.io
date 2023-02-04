@@ -53,18 +53,41 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div id="contentContainer" class="container">
       <div class="row">
         <div class="col">
-          <h3 class="demo-panel-title">Generate An Alias</h3>
-          <div class="form-group">
-            <button onclick="CreateAlias()" class="btn btn-block btn-lg btn-inverse">Generate</button>
+          <h3 class="demo-panel-title">Category</h3>
+          <select onchange="setCategory(this)" class="form-control select select-primary" data-toggle="select">
+            <option value="0">Select</option>
+            <option value="1">Nerd</option>
+            <option value="2">Programmer</option>
+            <option value="3">Streamer</option>
+            <option value="4">Gamer</option>
+            <option value="5">Gamer (Evil)</option>
+          </select>
+        </div> <!-- /.col -->
+        <div class="col">
+          <h3 class="demo-panel-title">Gender</h3>
+            <div class="form-group">
+              <select onchange="setGender(this)" class="form-control select select-primary" data-toggle="select">
+                <option value="0">Select</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+                <option value="3">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3 class="demo-panel-title">Action</h3>
+            <div class="form-group">
+              <button onclick="generateAlias()" class="btn btn-block btn-lg btn-inverse">Generate</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="contentContainer"></div>
     </div>
-
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@1.14.1/../dist/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -75,7 +98,7 @@
 
         var used = [];
 
-        function CreateAlias() {
+        function generateAlias() {
 
           // Values
           $.get('/tools/data/alias/words.txt', function(data) {
@@ -175,11 +198,20 @@
 
             document.getElementById("contentContainer").appendChild(row);
               
-          }, 'text');
+            }, 'text');
 
-          // GitHub needs to fix the 10 minutes per code commit updates when utilizing pages.
-          // This is crazy, Takes triple the time to build anything.
+            
         }
     </script>
+    <!--
+        <div class="row">
+            <div class="col">
+                <h3 class="demo-panel-title">Filters (Optional)</h3>
+                <div class="form-group">
+                    <input type="text" value="" placeholder="*" class="form-control">
+                </div>
+            </div>
+        </div>
+    -->
   </body>
 </html>
