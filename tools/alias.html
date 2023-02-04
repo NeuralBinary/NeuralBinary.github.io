@@ -118,30 +118,77 @@
         }
 
         function buildResults(c, g) {
+            // Values incoming
             const Category = c;
             const Gender = g;
 
+            // Row
             const row = document.createElement("div");
             row.className = "row";
 
+            // Column
             const col = document.createElement("div");
             col.className = "col";
 
-            const alias = document.createElement("h3");
-            alias.className = "demo-panel-title";
-            alias.innerText = "Alias";
+            const col2 = document.createElement("div");
+            col.className = "col";
+
+            const col3 = document.createElement("div");
+            col.className = "col";
+
+            // Value groups
 
             const fgroup = document.createElement("div");
             fgroup.className = "form-group";
+
+            const fgroup2 = document.createElement("div");
+            fgroup2.className = "form-group";
+
+            const fgroup3 = document.createElement("div");
+            fgroup3.className = "form-group";
+
+            // Labels
+
+            const text = document.createElement("h3");
+            text.className = "demo-panel-title";
+            text.innerText = "Alias";
+
+            const text2 = document.createElement("h3");
+            text2.className = "demo-panel-title";
+            text2.innerText = "Field 2";
+
+            const text3 = document.createElement("h3");
+            text3.className = "demo-panel-title";
+            text3.innerText = "Field 3";
+
+            // Values
 
             const fvalue = document.createElement("input");
             fvalue.className = "form-control";
             fvalue.value = Category + ' => ' + Gender;
 
+            const fvalue2 = document.createElement("input");
+            fvalue2.className = "form-control";
+            fvalue2.value = Category + ' => ' + Gender;
+
+            const fvalue3 = document.createElement("input");
+            fvalue3.className = "form-control";
+            fvalue3.value = Category + ' => ' + Gender;
+
+            // Assign Everything
+
             row.appendChild(col);
-            col.appendChild(alias);
-            col.appendChild(fgroup);
-            fgroup.appendChild(fvalue);
+            row.appendChild(col2);
+            row.appendChild(col3);
+
+            col.appendChild(text);
+            col.appendChild(fvalue);
+
+            col2.appendChild(text2);
+            col2.appendChild(fvalue2);
+
+            col3.appendChild(text3);
+            col3.appendChild(fvalue3);
 
             document.getElementById("contentContainer").appendChild(row);
         }
