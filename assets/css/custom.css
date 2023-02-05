@@ -1,6 +1,12 @@
-.discord-invite {
-    color: #fff;
-    background: #7d83c1 linear-gradient(180deg, #7d82bb, #7d83c1) repeat-x;
-    border-color: #7d83c1;
-    box-shadow: none;
-  }
+.discord-invite, .discord-invite:visited {
+  color: #fff;
+  background: #7d83c1 linear-gradient(180deg, #7d82bb, #7d83c1) repeat-x;
+  border-color: #7d83c1;
+  box-shadow: none;
+  text-decoration:none;
+}
+
+.discord-invite:hover {
+  opacity:0.8;
+  text-decoration:none;
+}
