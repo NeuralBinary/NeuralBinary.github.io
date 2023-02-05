@@ -81,12 +81,7 @@
 
         var used = [];
 
-        var tri = {
-          a: 0,
-          b: 0,
-          c: 0
-        }
-
+        var count = 0;
         function generateAlias() {
 
           // Values
@@ -97,9 +92,7 @@
             var select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
             var select3 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
 
-            tri.a = tri.a++; // Initial count
-            tri.b = (tri.a * 2); // Second count
-            tri.c = (tri.b * 2); // Third count
+            count++;
             
             if (select == select2) {
               select2 = words[Math.floor(Math.random() * (Math.floor(words.length) - Math.ceil(0)) + Math.ceil(0))];
@@ -155,15 +148,7 @@
 
             const text = document.createElement("h3");
             text.className = "demo-panel-title";
-            text.innerText = "Alias " + tri.a;
-
-            const text2 = document.createElement("h3");
-            text2.className = "demo-panel-title";
-            text2.innerText = "Alias " + tri.b;
-
-            const text3 = document.createElement("h3");
-            text3.className = "demo-panel-title";
-            text3.innerText = "Alias " + tri.c;
+            text.innerText = "Suggestion Row " + count;
 
             const fvalue = document.createElement("input");
             fvalue.className = "form-control";
