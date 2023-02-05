@@ -66,7 +66,7 @@
     <!--
       End of temp
     -->
-    
+
     <div class="pagecontainer">
       <div id="contentContainer" class="container" style="margin:auto auto !important;">
         <div class="row">
@@ -91,12 +91,12 @@
     <script src="../docs/assets/js/application.js"></script>
     <script type="text/javascript">
 
-        var used = [];
+      var used = [];
+      var count = 0;
 
-        var count = 0;
-        function generateAlias() {
+      function generateAlias() {
 
-          // Values
+        // Values
           $.get('/tools/data/alias/words.txt', function(data) {
             var words = data.split("\n");
 
@@ -120,7 +120,6 @@
               if (i == select) { found = true; }
               if (i == select2) { found2 = true; }
               if (i == select3) { found3 = true; }
-              current++;
             });
 
             if (found == true) {
@@ -183,10 +182,10 @@
             col.appendChild(text);
             col.appendChild(fvalue);
 
-            col2.appendChild(text2);
+            //col2.appendChild(text2);
             col2.appendChild(fvalue2);
 
-            col3.appendChild(text3);
+            //col3.appendChild(text3);
             col3.appendChild(fvalue3);
 
             document.getElementById("contentContainer").appendChild(row);
