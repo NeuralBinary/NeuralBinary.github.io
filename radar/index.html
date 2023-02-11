@@ -124,23 +124,7 @@
                                       <th scope="col">Date</th>
                                   </tr>
                               </thead>
-                              <tbody id="detectionHistory">
-                                  <tr class="bg-white">
-                                      <th scope="row">
-                                          <div class="media align-items-center">
-                                              
-                                              <div class="media-body">
-                                                <img src="https://pbs.twimg.com/profile_images/899245723044237313/yHA7SDg__400x400.jpg" class="avatar avatar-lg mr-3" style="width:40px;height:40px;">
-                                              </div>
-                                          </div>
-                                      </th>
-                                      <td>Hyp******</td>
-                                      <td>5:13PM</td>
-                                      <td>2/9/2023</td>
-                                  </tr>
-                                  <tr class="table-divider"></tr>
-            
-                              </tbody>
+                              <tbody id="detectionHistory"></tbody>
                             </table>
                           </p>
                           
@@ -153,6 +137,26 @@
         <!--
           Modals
         -->
+
+        <div class="modal modal-fluid fade" id="view_player" tabindex="-1" role="dialog" aria-labelledby="comingsoon" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="row justify-content-center">
+                  <div class="col-lg-8 text-center py-4">
+                    <h4 class="heading h3" id="playerName">???</h4>
+                    <p class="lead text-muted" id="playerInfo">
+                      ???
+                    </p>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Support Creators</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="modal modal-fluid fade" id="comingsoon" tabindex="-1" role="dialog" aria-labelledby="comingsoon" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -272,7 +276,60 @@
     <script type="text/javascript">
       // detectionHistory
       // Output 5 entries, offer a load more button
+      var global = [];
+
       LoadHistory();
+
+      function getInfo(username) {
+        var found = false;
+        var data;
+        Array.prototype.forEach.call(global, function(i) {
+          if (i.Username == username) {
+            found = true;
+            data = i;
+          }
+        });
+
+        if (found == true) {
+          document.getElementById("playerName").innerHTML = `${username}`;
+          document.getElementById("playerInfo").innerHTML = `
+          <table class="table table-hover table-cards align-items-center">
+            <thead>
+              <tr>
+                <th scope="col">Platform</th>
+                <th scope="col">Game</th>
+                <th scope="col">Reports</th>
+                <th scope="col">Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <img src="./assets/images/software/${data.Software}.jpg" class="avatar avatar-lg mr-3" style="width:40px;height:40px;">
+                  </div>
+                </div>
+              </th>
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <img src="./assets/images/software/${data.Software}.jpg" class="avatar avatar-lg mr-3" style="width:40px;height:40px;">
+                  </div>
+                </div>
+              </th>
+              <td>${data.Reports}</td>
+              <td>${data.Date}</td>
+            </tr>
+            </tbody>
+          </table>
+          `;
+        } else {
+          // not in database?
+          document.getElementById("playerName").innerHTML = `${username}`;
+          document.getElementById("playerInfo").innerHTML = `We could not find this user, It does not mean that they are not here as they could be under review.`;
+        }
+      }
 
       function LoadHistory() {
         if (doesExist() == true) {
@@ -298,10 +355,42 @@
         getResults.onload = function() {
           var Results = JSON.parse(this.responseText);
           var History = Results.List;
-          Array.prototype.forEach.call(History, function(Item) {    
-            // we will build our tables here, for now test:
-            console.log(Item);
+          var Count = 0;
+          Array.prototype.forEach.call(History, function(Item) {
+            global.push(Item);
+            var template = `
+            <tr class="bg-white">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <img src="./assets/images/software/${Item.Software}.jpg" class="avatar avatar-lg mr-3" style="width:40px;height:40px;">
+                  </div>
+                </div>
+              </th>
+              <td><a href="#" data-toggle="modal" data-target="#view_player" onclick="getInfo('${Item.Username}')">${Item.Username}</a></td>
+              <td>${Item.Time}</td>
+              <td>${Item.Date}</td>
+            </tr>
+            <tr class="table-divider"></tr>
+            `;
+            Count++;
+            document.getElementById("detectionHistory").innerHTML += template;
           });
+
+          if (Count == 0) {
+            var template = `
+            <tr class="bg-white">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    There a 0 results at this time, Check back later..
+                  </div>
+                </div>
+              </th>
+            </tr>
+            `;
+            document.getElementById("detectionHistory").innerHTML += template;
+          }
         }
         getResults.open("GET", "https://neuralbinary.github.io/radar/data/history.json", true);
         getResults.send();
