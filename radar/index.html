@@ -336,7 +336,8 @@
     <script src="./assets/vendor/textarea-autosize/textarea-autosize.min.js"></script>
     <script src="./assets/js/theme.js"></script>
     <script type="text/javascript">
-      // detectionHistory
+
+      var Key = null;
       // Output 5 entries, offer a load more button
       var global = [];
 
@@ -406,6 +407,51 @@
         }
       }
 
+      function postReport() { // 1, 2, 3, 8
+// add human check later
+            const Answer = this.responseText;
+            if (human == Answer) {
+              // good to go
+              const Gamertag = document.getElementById('reportGamertag').value;
+              const Game = document.getElementById('reportGame').value;
+              const PostReport = new XMLHttpRequest();
+              PostReport.onload = function() { // here we will read response..
+                var Response = Math.floor(this.responseText);
+                if (Response == 1) {
+                  alert("You have reported a cheater, thank you for the support.");
+                } else if (Response == 2) {
+                  alert("Game is invalid or blank.");
+                } else if (Response == 3) {
+                  alert("Gamertag is invalid or blank.");
+                } else if (Response == 8) {
+                  alert("It seems that person has already been reported so we updated their reputation.");
+                }
+              }
+              PostReport.open("GET", `https://simplyexperts.net/stack/radar/api.php?key=${Key}&action=add&gamertag=${Gamertag}&game=${Game}`, true);
+              PostReport.send();
+            } else {
+              // nope new verification
+              postReport(1);
+            }
+      }
+
+      function searchReport(i) {
+        var GetReport = new XMLHttpRequest();
+        GetReport.onload = function() {
+          var Response = Math.floor(this.responseText);
+          if (Response == 9) {
+            alert("Gamertag is invalid or blank.");
+          } else if (Response == 4) {
+            alert("We could not find that person.");
+          } else { // we need to test this
+            var obj = JSON.parse(this.responseText);
+            console.log(obj);
+          }
+        }
+        GetReport.open("GET", `https://simplyexperts.net/stack/radar/api.php?key=${Key}&action=search&gamertag=${i}&game=${Game}`, true);
+        GetReport.send();
+      }
+
       function fetchHistory() {
         var getResults = new XMLHttpRequest();
         getResults.onload = function() {
@@ -414,6 +460,7 @@
           var Count = 0;
           Array.prototype.forEach.call(History, function(Item) {
             global.push(Item);
+            // { "Id": 1, "Software": "BattleEye", "Game": "Escape From Tarkov", "Username": "Hiloeeeee", "Time": "3:29pm", "Reports": 0, "Date": "2/9/2023" }
             var template = `
             <tr class="bg-white">
               <th scope="row">
@@ -451,6 +498,13 @@
         getResults.open("GET", "https://simplyexperts.net/stack/radar/history.json", true);
         getResults.send();
       }
+
+      var setKey = new XMLHttpRequest();
+      setKey.onload = function() {
+        Key = this.responseText;
+      }
+      setKey.open("GET", `https://simplyexperts.net/stack/radar/key.php`, true);
+      setKey.send();
     </script>
     <!--
         /Scripts
