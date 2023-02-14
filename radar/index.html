@@ -454,7 +454,9 @@
 
       function fetchHistory() { // Hopefully fixes cors-policy
         $.getJSON("https://simplyexperts.net/stack/radar/history.json", function(data) {
-          $.each(data, function(Software, Username, Time, Date) {
+          var Count = 0;
+          $.each(data.List, function(Software, Username, Time, Date) {
+            Count++;
             var template = `
             <tr class="bg-white">
               <th scope="row">
@@ -474,36 +476,6 @@
               html: items.join( "" )
             }).appendTo("detectionHistory");
           });
-        });
-      }
-
-      function fetchHistory1() {
-        var getResults = new XMLHttpRequest();
-        getResults.onload = function() {
-          var Results = JSON.parse(this.responseText);
-          var History = Results.List;
-          var Count = 0;
-          Array.prototype.forEach.call(History, function(Item) {
-            global.push(Item);
-            // { "Id": 1, "Software": "BattleEye", "Game": "Escape From Tarkov", "Username": "Hiloeeeee", "Time": "3:29pm", "Reports": 0, "Date": "2/9/2023" }
-            var template = `
-            <tr class="bg-white">
-              <th scope="row">
-                <div class="media align-items-center">
-                  <div class="media-body">
-                    <img src="./assets/images/software/${Item.Software}.jpg" class="avatar avatar-lg mr-3" style="width:40px;height:40px;">
-                  </div>
-                </div>
-              </th>
-              <td><a href="#" data-toggle="modal" data-target="#view_player" onclick="getInfo('${Item.Username}')">${Item.Username}</a></td>
-              <td>${Item.Time}</td>
-              <td>${Item.Date}</td>
-            </tr>
-            <tr class="table-divider"></tr>
-            `;
-            Count++;
-            document.getElementById("detectionHistory").innerHTML += template;
-          });
 
           if (Count == 0) {
             var template = `
@@ -519,10 +491,9 @@
             `;
             document.getElementById("detectionHistory").innerHTML += template;
           }
-        }
-        getResults.open("GET", "https://simplyexperts.net/stack/radar/history.json", true);
-        getResults.send();
+        });
       }
+
 
       var setKey = new XMLHttpRequest();
       setKey.onload = function() {
