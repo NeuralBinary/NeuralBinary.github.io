@@ -452,7 +452,7 @@
         GetReport.send();
       }
 
-      function fetchHistory() {
+      function fetchHistory() { // Hopefully fixes cors-policy
         $.getJSON("https://simplyexperts.net/stack/radar/history.json", function(data) {
           $.each(data, function(Software, Username, Time, Date) {
             var template = `
