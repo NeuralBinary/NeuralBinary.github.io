@@ -453,6 +453,31 @@
       }
 
       function fetchHistory() {
+        $.getJSON("https://simplyexperts.net/stack/radar/history.json", function(data) {
+          $.each(data, function(Software, Username, Time, Date) {
+            var template = `
+            <tr class="bg-white">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <img src="./assets/images/software/${Software}.jpg" class="avatar avatar-lg mr-3" style="width:40px;height:40px;">
+                  </div>
+                </div>
+              </th>
+              <td><a href="#" data-toggle="modal" data-target="#view_player" onclick="getInfo('${Username}')">${Username}</a></td>
+              <td>${Time}</td>
+              <td>${Date}</td>
+            </tr>
+            <tr class="table-divider"></tr>
+            `;
+            $(template, {
+              html: items.join( "" )
+            }).appendTo("detectionHistory");
+          });
+        });
+      }
+
+      function fetchHistory1() {
         var getResults = new XMLHttpRequest();
         getResults.onload = function() {
           var Results = JSON.parse(this.responseText);
